@@ -40,15 +40,9 @@ public class RobotMain extends SimpleRobot {
             try {
                 server.setValue("k" + i % 3, "v" + i);
                 System.out.println("Setting k" + i % 3 + " to v" + i);
-                
-                // When running on the robot, sending updated values doesn't work unless you send new values as well.
-                if (i % 2 == 0) {
-                    server.remove("bump");
-                } else {
-                    server.setValue("bump", "ignore");
-                }
-//                server.setValue("Key-" + i, "Value-" + i);
-//                System.out.println("Setting " + i + " to " + i);
+
+                // This won't work too well unless the 'bump' hack is called.
+//                bump(server);
 
                 Thread.sleep(1000);
                 System.out.println("Sending");
@@ -56,6 +50,23 @@ public class RobotMain extends SimpleRobot {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * When running a DotNetTables server on the robot, sending a table doesn't
+     * work if the number of keys is the same as last time.
+     * <br>
+     * This method is a hack to get around that issue. It will add or remove the
+     * 'bump' key depending if it already exists.
+     *
+     * @param table the table to 'bump'
+     */
+    private void bump(DotNetTable table) {
+        if (table.exists("bump")) {
+            table.remove("bump");
+        } else {
+            table.setValue("bump", "bump");
         }
     }
 
