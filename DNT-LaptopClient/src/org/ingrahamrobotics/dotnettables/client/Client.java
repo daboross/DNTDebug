@@ -16,8 +16,8 @@ public class Client implements DotNetTableEvents {
 
     public void run() {
         try {
-            DotNetTables.startClient("127.0.0.1");
-//            DotNetTables.startClient("4030");
+//            DotNetTables.startClient("127.0.0.1");
+            DotNetTables.startClient("4030");
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(-1);

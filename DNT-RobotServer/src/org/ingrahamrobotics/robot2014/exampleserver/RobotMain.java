@@ -40,8 +40,13 @@ public class RobotMain extends SimpleRobot {
             try {
                 server.setValue("k" + i % 3, "v" + i);
                 System.out.println("Setting k" + i % 3 + " to v" + i);
-
+                
                 // When running on the robot, sending updated values doesn't work unless you send new values as well.
+                if (i % 2 == 0) {
+                    server.remove("bump");
+                } else {
+                    server.setValue("bump", "ignore");
+                }
 //                server.setValue("Key-" + i, "Value-" + i);
 //                System.out.println("Setting " + i + " to " + i);
 
